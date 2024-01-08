@@ -1,0 +1,1438 @@
+function GetUi() 
+    if getgenv().Tvk then
+    if game.CoreGui:FindFirstChild("Sea Hub GUI") then
+        for a, v in ipairs(game.CoreGui:GetChildren()) do
+            if v.Name == "Sea Hub GUI" then
+                v:Destroy()
+            end
+        end
+    end
+end
+getgenv().Tvk = true
+getgenv().Chon = true
+
+local oldcolor = {
+    ["Border Color"] = Color3.fromRGB(131, 181, 255),
+    ["Click Effect Color"] = Color3.fromRGB(230, 230, 230),
+    ["Setting Icon Color"] = Color3.fromRGB(230, 230, 230),
+    ["Logo Image"] = "rbxassetid://6248942117",
+    ["Search Icon Color"] = Color3.fromRGB(255, 255, 255),
+    ["Search Icon Highlight Color"] = Color3.fromRGB(131, 181, 255),
+    ["GUI Text Color"] = Color3.fromRGB(230, 230, 230),
+    ["Text Color"] = Color3.fromRGB(230, 230, 230),
+    ["Placeholder Text Color"] = Color3.fromRGB(178, 178, 178),
+    ["Title Text Color"] = Color3.fromRGB(131, 181, 255),
+    ["Background 1 Color"] = Color3.fromRGB(43, 43, 43),
+    ["Background 1 Transparency"] = 0,
+    ["Background 2 Color"] = Color3.fromRGB(90, 90, 90),
+    ["Background 3 Color"] = Color3.fromRGB(53, 53, 53),
+    ["Background Image"] = "",
+    ["Page Selected Color"] = Color3.fromRGB(131, 181, 255),
+    ["Section Text Color"] = Color3.fromRGB(131, 181, 255),
+    ["Section Underline Color"] = Color3.fromRGB(131, 181, 255),
+    ["Toggle Border Color"] = Color3.fromRGB(131, 181, 255),
+    ["Toggle Checked Color"] = Color3.fromRGB(230, 230, 230),
+    ["Toggle Desc Color"] = Color3.fromRGB(185, 185, 185),
+    ["Button Color"] = Color3.fromRGB(131, 181, 255),
+    ["Label Color"] = Color3.fromRGB(101, 152, 220),
+    ["Dropdown Icon Color"] = Color3.fromRGB(230, 230, 230),
+    ["Dropdown Selected Color"] = Color3.fromRGB(131, 181, 255),
+    ["Textbox Highlight Color"] = Color3.fromRGB(131, 181, 255),
+    ["Box Highlight Color"] = Color3.fromRGB(131, 181, 255),
+    ["Slider Line Color"] = Color3.fromRGB(75, 75, 75),
+    ["Slider Highlight Color"] = Color3.fromRGB(59, 82, 115),
+    ["Tween Animation 1 Speed"] = 0.25,
+    ["Tween Animation 2 Speed"] = 0.5,
+    ["Tween Animation 3 Speed"] = 0.1
+}
+
+local b = {
+    ["Border Color"] = Color3.fromRGB(255,255,255),
+    ["Click Effect Color"] = Color3.fromRGB(230, 230, 230),
+    ["Setting Icon Color"] = Color3.fromRGB(230, 230, 230),
+    ["Logo Image"] = "rbxassetid://6248942117",
+    ["Search Icon Color"] = Color3.fromRGB(255, 255, 255),
+    ["Search Icon Highlight Color"] = Color3.fromRGB(142, 172, 255),
+    ["GUI Text Color"] = Color3.fromRGB(70, 70, 70),
+    ["Text Color"] = Color3.fromRGB(70, 70, 70),
+    ["Placeholder Text Color"] = Color3.fromRGB(100, 100, 100),
+    ["Title Text Color"] = Color3.fromRGB(142, 172, 255),
+    ["Background Main Color"] = Color3.fromRGB(255, 255, 255),
+    ["Background 1 Color"] = Color3.fromRGB(220, 220, 220),
+    ["Background 1 Transparency"] = 0,
+    ["Background 2 Color"] = Color3.fromRGB(200, 200, 200),
+    ["Background 3 Color"] = Color3.fromRGB(255, 255, 255),
+    ["Background Image"] = "",
+    ["Page Selected Color"] = Color3.fromRGB(142, 172, 255),
+    ["Section Text Color"] = Color3.fromRGB(142, 172, 255),
+    ["Section Underline Color"] = Color3.fromRGB(142, 172, 255),
+    ["Toggle Border Color"] = Color3.fromRGB(142, 172, 255),
+    ["Toggle Checked Color"] = Color3.fromRGB(70, 70, 70),
+    ["Toggle Desc Color"] = Color3.fromRGB(70, 70, 70),
+    ["Button Color"] = Color3.fromRGB(142, 172, 255),
+    ["Label Color"] = Color3.fromRGB(142, 172, 255),
+    ["Dropdown Icon Color"] = Color3.fromRGB(70, 70, 70),
+    ["Dropdown Selected Color"] = Color3.fromRGB(142, 172, 255),
+    ["Textbox Highlight Color"] = Color3.fromRGB(142, 172, 255),
+    ["Box Highlight Color"] = Color3.fromRGB(142, 172, 255),
+    ["Slider Line Color"] = Color3.fromRGB(75, 75, 75),
+    ["Slider Highlight Color"] = Color3.fromRGB(59, 82, 115),
+    ["Tween Animation 1 Speed"] = 0.25,
+    ["Tween Animation 2 Speed"] = 0.5,
+    ["Tween Animation 3 Speed"] = 0.1
+}
+
+local c = {}
+for d, v in pairs(b) do
+    c[d] = {}
+end
+local e = {}
+for d, v in pairs(b) do
+    e[d] = {Color = v, Rainbow = false, Breathing = {Toggle = false, Color1 = Color3.new(), Color2 = Color3.new()}}
+end
+local function f(g)
+    return {math.floor(g.r * 255), math.floor(g.g * 255), math.floor(g.b * 255), "Dit"}
+end
+function CorrectTable(h)
+    local i = {}
+    for d, v in pairs(h) do
+        if typeof(v) == "Color3" then
+            i[d] = f(v)
+        elseif type(v) == "table" then
+            i[d] = CorrectTable(v)
+        else
+            i[d] = v
+        end
+    end
+    return i
+end
+function DCorrectTable(h)
+    local i = {}
+    for d, v in pairs(h) do
+        if type(v) == "table" and v[4] == "Dit" then
+            i[d] = Color3.fromRGB(unpack(v))
+        elseif type(v) == "table" then
+            i[d] = DCorrectTable(v)
+        else
+            i[d] = v
+        end
+    end
+    return i
+end
+local j = game:GetService("HttpService")
+local k = "!CustomUI.json"
+function SaveCustomUISettings()
+    local j = game:GetService("HttpService")
+    if not isfolder("Sea Hub") then
+        makefolder("Sea Hub")
+    end
+    writefile("Sea Hub/" .. k, j:JSONEncode(CorrectTable(e)))
+end
+function ReadCustomUISetting()
+    local l, m =
+        pcall(
+        function()
+            local j = game:GetService("HttpService")
+            if not isfolder("Sea Hub") then
+                makefolder("Sea Hub")
+            end
+            local n = j:JSONDecode(readfile("Sea Hub/" .. k))
+            for d, v in pairs(n) do
+                local function o()
+                    if v.Color == nil then
+                        return
+                    end
+                    if v.Rainbow == nil then
+                        return
+                    end
+                    if v.Breathing == nil then
+                        return
+                    end
+                    if v.Breathing.Color1 == nil then
+                        return
+                    end
+                    if v.Breathing.Color2 == nil then
+                        return
+                    end
+                    return true
+                end
+                if not o() then
+                    SaveCustomUISettings()
+                    return ReadCustomUISetting()
+                end
+            end
+            return n
+        end
+    )
+    if l then
+        return m
+    else
+        SaveCustomUISettings()
+        return ReadCustomUISetting()
+    end
+end
+if not getgenv().Chon then 
+    e = DCorrectTable(ReadCustomUISetting())
+    for d, v in pairs(e) do
+        b[d] = v.Color
+    end
+end
+if not getgenv().ractvkretarddumb then
+    spawn(
+        function()
+            while wait(1) do
+                SaveCustomUISettings()
+            end
+        end
+    )
+    getgenv().ractvkretarddumb = true
+end
+getgenv().UIColor = b
+    setmetatable(
+    {},
+    {__newindex = function(p, q, r)
+            if c[q] then
+                for d, v in pairs(c[q]) do
+                    v()
+                end
+            end
+            rawset(b, q, r)
+            if not e[q] then
+                e[q] = {
+                    Color = v,
+                    Rainbow = false,
+                    Breathing = {Toggle = false, Color1 = Color3.new(), Color2 = Color3.new()}
+                }
+            end
+            e[q].Color = r
+        end, __index = b}
+)
+local s = {}
+local t = {}
+local u = {}
+local w = game:GetService("TweenService")
+local x = game:GetService("UserInputService")
+function u.ButtonEffect()
+    local y = game:GetService("Players").LocalPlayer:GetMouse()
+    local z = Drawing.new("Circle")
+    z.Visible = true
+    z.Radius = 10
+    z.Filled = true
+    z.Color = getgenv().UIColor["Click Effect Color"]
+    z.Position = Vector2.new(y.X, y.Y + 35)
+    local A = Instance.new("Folder")
+    A.Parent = u.gui
+    A.Name = "Game nhu buoi"
+    local n = Instance.new("NumberValue")
+    n.Value = 10
+    n.Parent = A
+    n.Name = "Rua nhu buoi"
+    local B = Instance.new("NumberValue")
+    B.Value = 1
+    B.Parent = A
+    B.Name = "Rua nhu buoi 2"
+    w:Create(n, TweenInfo.new(.25), {Value = 25}):Play()
+    w:Create(B, TweenInfo.new(.25), {Value = 0}):Play()
+    n:GetPropertyChangedSignal("Value"):Connect(
+        function()
+            z.Radius = n.Value
+        end
+    )
+    B:GetPropertyChangedSignal("Value"):Connect(
+        function()
+            z.Transparency = B.Value
+        end
+    )
+    wait(.5)
+    A:Destroy()
+end
+u.GetIMG = function(C)
+    local D = "SynAsset ["
+    local E = ""
+    if string.find(C, "rbxassetid://") then
+        E = C
+    else
+        pcall(
+            function()
+                if C and type(C) == "string" and tostring(game:HttpGet(C)):find("PNG") then
+                    for a = 1, 5 do
+                        D = tostring(D .. string.char(math.random(65, 122)))
+                    end
+                    D = D .. "].png"
+                    writefile(D, game:HttpGet(C))
+                    spawn(
+                        function()
+                            wait(5)
+                            delfile(D)
+                        end
+                    )
+                    E = getsynasset(D)
+                end
+            end
+        )
+    end
+    return E
+end
+u.Gui = Instance.new("ScreenGui")
+u.Gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+u.Gui.Name = "Sea Hub GUI"
+getgenv().ReadyForGuiLoaded = false
+spawn(
+    function()
+        u.Gui.Enabled = false
+        repeat
+            wait()
+        until getgenv().ReadyForGuiLoaded
+        u.Gui.Enabled = true
+    end
+)
+u.NotiGui = Instance.new("ScreenGui")
+u.NotiGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+u.NotiGui.Name = "Sea Hub Notification"
+local F = Instance.new("Frame")
+local G = Instance.new("UIListLayout")
+F.Name = "NotiContainer"
+F.Parent = u.NotiGui
+F.AnchorPoint = Vector2.new(1, 1)
+F.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+F.BackgroundTransparency = 1.000
+F.Position = UDim2.new(1, -5, 1, -5)
+F.Size = UDim2.new(0, 350, 1, -10)
+G.Name = "NotiList"
+G.Parent = F
+G.SortOrder = Enum.SortOrder.LayoutOrder
+G.VerticalAlignment = Enum.VerticalAlignment.Bottom
+G.Padding = UDim.new(0, 5)
+wait()
+getgenv().GUI = u.Gui
+--syn.unprotect_gui(GUI)
+-- // GOOGLE TRANSLATE // --
+
+-- function SetUpTranslate()
+--     local YourLang = "vi" -- Language code that the messages are going to be translated to
+
+--     local googlev = isfile'googlev.txt' and readfile'googlev.txt' or ''
+--     local request = request or syn.request
+    
+--     local function outputHook(fnc)
+--         return function(...)
+--             return fnc('[INLINE TRANSLATOR]', ...)
+--         end
+--     end
+--     local translate, getISOCode do
+--         function googleConsent(Body) -- Because google really said: "Fuck you."
+--             local args = {}
+    
+--             for match in Body:gmatch('<input type="hidden" name=".-" value=".-">') do
+--                 local k,v = match:match('<input type="hidden" name="(.-)" value="(.-)">')
+--                 args[k] = v
+--             end
+--             googlev = args.v
+--             writefile('googlev.txt', args.v)
+--         end
+    
+--         local function got(url, Method, Body) -- Basic version of https://www.npmjs.com/package/got using synapse's request API for google websites
+--             Method = Method or "GET"
+            
+--             local res = request({
+--                 Url = url,
+--                 Method = Method,
+--                 Headers = {cookie="CONSENT=YES+"..googlev},
+--                 Body = Body
+--             })
+            
+--             if res.Body:match('https://consent.google.com/s') then
+--                 googleConsent(res.Body)
+--                 res = request({
+--                     Url = url,
+--                     Method = "GET",
+--                     Headers = {cookie="CONSENT=YES+"..googlev}
+--                 })
+--             end
+            
+--             return res
+--         end
+    
+--         getgenv().languages = {
+--             auto = "Automatic",
+--             ['zh-cn'] = "Chinese Simplified",
+--             ['zh-tw'] = "Chinese Traditional",
+--             en = "English",
+--             fr = "French",
+--             de = "German",
+--             el = "Greek",
+--             hu = "Hungarian",
+--             id = "Indonesian",
+--             it = "Italian",
+--             ja = "Japanese",
+--             ko = "Korean",
+--             mg = "Malagasy",
+--             pl = "Polish",
+--             pt = "Portuguese",
+--             ru = "Russian",
+--             es = "Spanish",
+--             tr = "Turkish",
+--             vi = "Vietnamese",
+--         };
+--         local listl = {}
+--         for k,v in pairs(languages) do table.insert(listl,k) end
+--         function SetRandomLang() 
+--             YourLang = listl[math.random(1,#listl)]
+--         end
+--         function find(lang)
+--             for i,v in pairs(languages) do
+--                 if i == lang or v == lang then
+--                     return i
+--                 end
+--             end
+--         end
+    
+--         function isSupported(lang)
+--             local key = find(lang)
+--             return key and true or false 
+--         end
+    
+--         function getISOCode(lang)
+--             local key = find(lang)
+--             return key
+--         end
+    
+--         function stringifyQuery(dataFields)
+--             local data = ""
+--             for k, v in pairs(dataFields) do
+--                 if type(v) == "table" then
+--                     for _,v in pairs(v) do
+--                         data = data .. ("&%s=%s"):format(
+--                             game.HttpService:UrlEncode(k),
+--                             game.HttpService:UrlEncode(v)
+--                         )
+--                     end
+--                 else
+--                     data = data .. ("&%s=%s"):format(
+--                         game.HttpService:UrlEncode(k),
+--                         game.HttpService:UrlEncode(v)
+--                     )
+--                 end
+--             end
+--             data = data:sub(2)
+--             return data
+--         end
+    
+--         local reqid = math.random(1000,9999)
+--         local rpcidsTranslate = "MkEWBc"
+--         local rootURL = "https://translate.google.com/"
+--         local executeURL = "https://translate.google.com/_/TranslateWebserverUi/data/batchexecute"
+--         local fsid, bl
+    
+--         do -- init
+--             local InitialReq = got(rootURL)
+--             fsid = InitialReq.Body:match('"FdrFJe":"(.-)"')
+--             bl = InitialReq.Body:match('"cfb2h":"(.-)"')
+--         end
+    
+--         local HttpService = game:GetService("HttpService")
+--         function jsonE(o)
+--             return HttpService:JSONEncode(o)
+--         end
+--         function jsonD(o)
+--             return HttpService:JSONDecode(o)
+--         end
+    
+--         function translate(str, to, from)
+--             reqid = reqid + 10000
+--             from = from and getISOCode(from) or 'auto'
+--             to = to and getISOCode(to) or 'en'
+    
+--             local data = {{str, from, to, true}, {nil}}
+    
+--             local freq = {
+--                 {
+--                     {
+--                         rpcidsTranslate, 
+--                         jsonE(data),
+--                         nil,
+--                         "generic"
+--                     }
+--                 }
+--             }
+    
+--             local url = executeURL..'?'..stringifyQuery{rpcids = rpcidsTranslate, ['f.sid'] = fsid, bl = bl, hl="en", _reqid = reqid-10000, rt = 'c'}
+--             local body = stringifyQuery{['f.req'] = jsonE(freq)}
+            
+--             local req = got(url, "POST", body)
+            
+--             local body = jsonD(req.Body:match'%[.-%]\n')
+--             local translationData = jsonD(body[1][3])
+--             local result = {
+--                 text = "",
+--                 from = {
+--                     language = "",
+--                     text = ""
+--                 },
+--                 raw = ""
+--             }
+--             result.raw = translationData
+--             result.text = translationData[2][1][1][6][1][1]
+            
+--             result.from.language = translationData[3]
+--             result.from.text = translationData[2][5][1]
+    
+--             return result
+--         end
+--     end
+--     function translateFrom(message)
+--         local translation = translate(message, YourLang)
+    
+--         local text
+--         if translation.from.language ~= YourLang then 
+--             text = translation.text
+--         end
+    
+--         return {text, translation.from.language}
+--     end
+--     function Translate(message) 
+--         local s,translated =  pcall(function() 
+--             return translateFrom(message)[1]
+--         end)
+--         if s then return translated 
+--         else
+--             --print(message,translated)
+--         end
+--     end
+-- end
+-- SetUpTranslate()
+-- getgenv().TranslateCache = {}
+-- if not isfolder("Sea Hub") then
+--     makefolder("Sea Hub")
+-- end
+-- local s,Translated = pcall(function() 
+--     return game.HttpService:JSONDecode(readfile("Sea Hub/!UIText.json"))
+-- end)
+-- function SaveFile() 
+--     pcall(function() 
+--         writefile("Sea Hub/!UIText.json",game.HttpService:JSONEncode(getgenv().TranslateCache))
+--     end)
+-- end
+-- function isnumber() end
+-- local UIChanged = false
+-- if s and Translated then 
+--     getgenv().TranslateCache = Translated end
+-- if GUI then 
+--     GUI.DescendantAdded:Connect(function(des) 
+--         if des then 
+--             if pcall(function() return des.Text end) then 
+--                 delay(0,function() 
+--                     if des.Text=="" or #des.Text<=4 or tonumber(des.Text)~=nil then
+--                         return
+--                     end
+--                     if string.match(des.Text,"Sea Hub") then 
+--                         local tvk = des.Text:gsub("Sea Hub","Trung TÃ¢m Biá»ƒn")
+--                         des.Text = tvk
+--                         return
+--                     end
+--                     local old = des.Text
+--                     local c = 0
+--                     while des.Text==old and c<3 do 
+--                         --SetRandomLang()
+--                         if getgenv().TranslateCache[des.Text] then 
+--                             des.Text = getgenv().TranslateCache[des.Text]
+--                             return
+--                         end
+--                         local t = Translate(des.Text)
+--                         if t and t ~= old then 
+--                             getgenv().TranslateCache[des.Text] = t
+--                             UIChanged =true
+--                             if t then des.Text = t end
+--                         end
+--                         wait(1)
+--                         c=c+1
+--                     end
+--                     getgenv().TranslateCache[des.Text]  = des.Text
+--                     UIChanged =true
+--                 end)
+--             end
+--         end
+--     end)
+-- end
+-- spawn(function() 
+--     local t = tick()
+--     while wait(2) do 
+--         if tick()-t>30 then 
+--             if UIChanged then 
+--                 SaveFile()
+--                 UIChanged = false
+--             end
+--         else
+--             SaveFile()
+--         end
+--     end
+-- end)
+-- if syn.protect_gui then
+--     syn.protect_gui(u.Gui)
+--     syn.protect_gui(u.NotiGui)
+--     u.Gui.Parent = game:GetService("CoreGui")
+--     u.NotiGui.Parent = game:GetService("CoreGui")
+-- end
+u.Gui.Parent = game:GetService("CoreGui")
+u.NotiGui.Parent = game:GetService("CoreGui")
+
+function u.Getcolor(g)
+    return {math.floor(g.r * 255), math.floor(g.g * 255), math.floor(g.b * 255)}
+end
+function t.CreateNoti(H)
+    getgenv().TitleNameNoti = H.Title or ""
+    local I = H.Desc
+    local J = H.ShowTime or 10
+    local K = Instance.new("Frame")
+    local L = Instance.new("Frame")
+    local M = Instance.new("UICorner")
+    local N = Instance.new("Frame")
+    local O = Instance.new("ImageLabel")
+    local P = Instance.new("UICorner")
+    local Q = Instance.new("TextLabel")
+    local R = Instance.new("Frame")
+    local S = Instance.new("ImageLabel")
+    local T = Instance.new("TextButton")
+    local U = Instance.new("TextLabel")
+    K.Name = "NotiFrame"
+    K.Parent = F
+    K.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    K.BackgroundTransparency = 1.000
+    K.ClipsDescendants = true
+    K.Position = UDim2.new(0, 0, 0, 0)
+    K.Size = UDim2.new(1, 0, 0, 0)
+    K.AutomaticSize = Enum.AutomaticSize.Y
+    L.Name = "Noticontainer"
+    L.Parent = K
+    L.Position = UDim2.new(1, 0, 0, 0)
+    L.Size = UDim2.new(1, 0, 1, 6)
+    L.AutomaticSize = Enum.AutomaticSize.Y
+    L.BackgroundColor3 = getgenv().UIColor["Background 3 Color"]
+    table.insert(
+        c["Background 3 Color"],
+        function()
+            L.BackgroundColor3 = getgenv().UIColor["Background 3 Color"]
+        end
+    )
+    M.CornerRadius = UDim.new(0, 4)
+    M.Parent = L
+    N.Name = "Topnoti"
+    N.Parent = L
+    N.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    N.BackgroundTransparency = 1.000
+    N.Position = UDim2.new(0, 0, 0, 5)
+    N.Size = UDim2.new(1, 0, 0, 25)
+    O.Name = "Ruafimg"
+    O.Parent = N
+    O.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    O.BackgroundTransparency = 1.000
+    O.Position = UDim2.new(0, 10, 0, 0)
+    O.Size = UDim2.new(0, 25, 0, 25)
+    O.Image = getgenv().UIColor["Logo Image"]
+    table.insert(
+        c["Logo Image"],
+        function()
+            O.Image = u.GetIMG(getgenv().UIColor["Logo Image"])
+        end
+    )
+    P.CornerRadius = UDim.new(1, 0)
+    P.Name = "RuafimgCorner"
+    P.Parent = O
+    local V = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[1])
+    local W = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[2])
+    local X = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[3])
+    local g = V .. "," .. W .. "," .. X
+    Q.Text = '<font color="rgb(' .. g .. ')">Sea Hub</font> ' .. getgenv().TitleNameNoti
+    table.insert(
+        c["Title Text Color"],
+        function()
+            local V = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[1])
+            local W = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[2])
+            local X = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[3])
+            local g = V .. "," .. W .. "," .. X
+            Q.Text = '<font color="rgb(' .. g .. ')">Sea Hub</font> ' .. getgenv().TitleNameNoti
+        end
+    )
+    Q.Name = "TextLabelNoti"
+    Q.Parent = N
+    Q.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    Q.BackgroundTransparency = 1.000
+    Q.Position = UDim2.new(0, 40, 0, 0)
+    Q.Size = UDim2.new(1, -40, 1, 0)
+    Q.Font = Enum.Font.GothamBold
+    Q.TextSize = 14.000
+    Q.TextWrapped = true
+    Q.TextXAlignment = Enum.TextXAlignment.Left
+    Q.RichText = true
+    Q.TextColor3 = getgenv().UIColor["GUI Text Color"]
+    table.insert(
+        c["GUI Text Color"],
+        function()
+            Q.TextColor3 = getgenv().UIColor["GUI Text Color"]
+        end
+    )
+    R.Name = "CloseContainer"
+    R.Parent = N
+    R.AnchorPoint = Vector2.new(1, 0.5)
+    R.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    R.BackgroundTransparency = 1.000
+    R.Position = UDim2.new(1, -4, 0.5, 0)
+    R.Size = UDim2.new(0, 22, 0, 22)
+    S.Name = "CloseImage"
+    S.Parent = R
+    S.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    S.BackgroundTransparency = 1.000
+    S.Size = UDim2.new(1, 0, 1, 0)
+    S.Image = "rbxassetid://3926305904"
+    S.ImageRectOffset = Vector2.new(284, 4)
+    S.ImageRectSize = Vector2.new(24, 24)
+    S.ImageColor3 = getgenv().UIColor["Search Icon Color"]
+    table.insert(
+        c["Search Icon Color"],
+        function()
+            S.ImageColor3 = getgenv().UIColor["Search Icon Color"]
+        end
+    )
+    T.Parent = R
+    T.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    T.BackgroundTransparency = 1.000
+    T.Size = UDim2.new(1, 0, 1, 0)
+    T.Font = Enum.Font.SourceSans
+    T.Text = ""
+    T.TextColor3 = Color3.fromRGB(0, 0, 0)
+    T.TextSize = 14.000
+    if I then
+        U.Name = "TextColor"
+        U.Parent = L
+        U.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+        U.BackgroundTransparency = 1.000
+        U.Position = UDim2.new(0, 10, 0, 35)
+        U.Size = UDim2.new(1, -15, 0, 0)
+        U.Font = Enum.Font.GothamBold
+        U.Text = I
+        U.TextSize = 14.000
+        U.TextXAlignment = Enum.TextXAlignment.Left
+        U.RichText = true
+        U.TextColor3 = getgenv().UIColor["Text Color"]
+        U.AutomaticSize = Enum.AutomaticSize.Y
+        U.TextWrapped = true
+        table.insert(
+            c["Text Color"],
+            function()
+                U.TextColor3 = getgenv().UIColor["Text Color"]
+            end
+        )
+    end
+    local function Y()
+        w:Create(L, TweenInfo.new(getgenv().UIColor["Tween Animation 1 Speed"]), {Position = UDim2.new(1, 0, 0, 0)}):Play(
+
+        )
+        wait(.25)
+        K:Destroy()
+    end
+    w:Create(L, TweenInfo.new(getgenv().UIColor["Tween Animation 1 Speed"]), {Position = UDim2.new(0, 0, 0, 0)}):Play()
+    T.MouseEnter:Connect(
+        function()
+            w:Create(
+                S,
+                TweenInfo.new(getgenv().UIColor["Tween Animation 1 Speed"]),
+                {ImageColor3 = getgenv().UIColor["Search Icon Highlight Color"]}
+            ):Play()
+        end
+    )
+    T.MouseLeave:Connect(
+        function()
+            w:Create(
+                S,
+                TweenInfo.new(getgenv().UIColor["Tween Animation 1 Speed"]),
+                {ImageColor3 = getgenv().UIColor["Search Icon Color"]}
+            ):Play()
+        end
+    )
+    T.MouseButton1Click:Connect(
+        function()
+            spawn(
+                function()
+                    u.ButtonEffect()
+                end
+            )
+            wait(.25)
+            Y()
+        end
+    )
+    spawn(
+        function()
+            wait(J)
+            Y()
+        end
+    )
+end
+function t.CreateMain(H)
+    local Z = tostring(H.Title) or "Sea Hub"
+    getgenv().MainDesc = H.Desc or ""
+    local _ = false
+    cac = false
+    local function a0(a1, a2)
+        local a3 = nil
+        local a4 = nil
+        local a5 = nil
+        local a6 = nil
+        a1.InputBegan:Connect(
+            function(a7)
+                if a7.UserInputType == Enum.UserInputType.MouseButton1 or a7.UserInputType == Enum.UserInputType.Touch then
+                    a3 = true
+                    a5 = a7.Position
+                    a6 = a2.Position
+                    a7.Changed:Connect(
+                        function()
+                            if a7.UserInputState == Enum.UserInputState.End then
+                                a3 = false
+                            end
+                        end
+                    )
+                end
+            end
+        )
+        a1.InputChanged:Connect(
+            function(a7)
+                if a7.UserInputType == Enum.UserInputType.MouseMovement or a7.UserInputType == Enum.UserInputType.Touch then
+                    a4 = a7
+                end
+            end
+        )
+        x.InputChanged:Connect(
+            function(a7)
+                if a7 == a4 and a3 then
+                    local a8 = a7.Position - a5
+                    if not _ and cac then
+                        w:Create(
+                            a2,
+                            TweenInfo.new(0.35, Enum.EasingStyle.Linear, Enum.EasingDirection.Out),
+                            {Position = UDim2.new(a6.X.Scale, a6.X.Offset + a8.X, a6.Y.Scale, a6.Y.Offset + a8.Y)}
+                        ):Play()
+                    elseif not _ and not cac then
+                        a2.Position = UDim2.new(a6.X.Scale, a6.X.Offset + a8.X, a6.Y.Scale, a6.Y.Offset + a8.Y)
+                    end
+                end
+            end
+        )
+    end
+    local a9 = Instance.new("Frame")
+    local aa = Instance.new("ImageLabel")
+    local ab = Instance.new("UICorner")
+    local ac = Instance.new("Frame")
+    local O = Instance.new("ImageLabel")
+    local ad = Instance.new("TextLabel")
+    local ae = Instance.new("Frame")
+    local M = Instance.new("UICorner")
+    local af = Instance.new("ScrollingFrame")
+    local ag = Instance.new("UIListLayout")
+    local ah = Instance.new("TextLabel")
+    local ai = Instance.new("Frame")
+    local aj = Instance.new("UIPageLayout")
+    local ak = Instance.new("Frame")
+    local al = Instance.new("TextButton")
+    local am = Instance.new("ImageLabel")
+    local an = Instance.new("Frame")
+    local ao = Instance.new("Frame")
+    local ap = Instance.new("Frame")
+    local aq = Instance.new("UIPageLayout")
+    local ar
+    a9.Name = "Main"
+    a9.Parent = u.Gui
+    a9.BackgroundColor3 = Color3.fromRGB(42, 42, 42)
+    a9.BackgroundTransparency = 1.000
+    a9.Position = UDim2.new(0.5, 0, 0.5, 0)
+    a9.AnchorPoint = Vector2.new(0.5, 0.5)
+    a9.Size = UDim2.new(0, 629, 0, 359)
+    a0(a9, a9)
+    aa.Name = "maingui"
+    aa.Parent = a9
+    aa.AnchorPoint = Vector2.new(0.5, 0.5)
+    aa.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    aa.BackgroundTransparency = 1.000
+    aa.Position = UDim2.new(0.5, 0, 0.5, 0)
+    aa.Selectable = true
+    aa.Size = UDim2.new(1, 30, 1, 30)
+    aa.Image = "rbxassetid://8068653048"
+    aa.ScaleType = Enum.ScaleType.Slice
+    aa.SliceCenter = Rect.new(15, 15, 175, 175)
+    aa.SliceScale = 1.300
+    aa.ImageColor3 = getgenv().UIColor["Border Color"]
+    table.insert(
+        c["Border Color"],
+        function()
+            aa.ImageColor3 = getgenv().UIColor["Border Color"]
+        end
+    )
+    function u.ReloadMain(v)
+        aa.ImageColor3 = getgenv().UIColor["Title Text Color"]
+        local V = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[1])
+        local W = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[2])
+        local X = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[3])
+        local g = V .. "," .. W .. "," .. X
+        ad.Text = '<font color="rgb(' .. g .. ')">Sea Hub</font> ' .. getgenv().MainDesc
+        table.insert(
+            c["Title Text Color"],
+            function()
+                aa.ImageColor3 = getgenv().UIColor["Title Text Color"]
+                local V = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[1])
+                local W = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[2])
+                local X = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[3])
+                local g = V .. "," .. W .. "," .. X
+                ad.Text = '<font color="rgb(' .. g .. ')">Sea Hub</font> ' .. getgenv().MainDesc
+            end
+        )
+        local as
+        if
+            v ~= "" and type(v) == "string" and string.find(v:lower(), ".webm") and
+                pcall(
+                    function()
+                        writefile("seahub.webm", syn.request({Url = v}).Body)
+                    end
+                )
+         then
+            wait(.25)
+            local at = isfile("seahub.webm")
+            wait(.25)
+            if at then
+                as = Instance.new("VideoFrame")
+                as.Name = "MainContainer"
+                as.Parent = a9
+                as.BackgroundColor3 = getgenv().UIColor["Background Main Color"]
+                as.Size = UDim2.new(1, 0, 1, 0)
+                as.Video = getsynasset("seahub.webm")
+                as.Looped = true
+                as:Play()
+                wait(.5)
+                delfile("seahub.webm")
+            end
+        else
+            as = Instance.new("ImageLabel")
+            as.Name = "MainContainer"
+            as.Parent = a9
+            as.BackgroundColor3 = getgenv().UIColor["Background Main Color"]
+            as.Size = UDim2.new(1, 0, 1, 0)
+            as.Image = u.GetIMG(v)
+        end
+        MainCorner_ = Instance.new("UICorner")
+        MainCorner_.CornerRadius = UDim.new(0, 4)
+        MainCorner_.Name = "MainCorner"
+        MainCorner_.Parent = as
+        for a, m in next, a9:GetChildren() do
+            if m.Name == "MainContainer" then
+                for a, v in next, m:GetChildren() do
+                    v.Parent = as
+                end
+                wait()
+                m:Destroy()
+                break
+            end
+        end
+        table.insert(
+            c["Background 3 Color"],
+            function()
+                as.BackgroundColor3 = getgenv().UIColor["Background 3 Color"]
+            end
+        )
+    end
+    aa.ImageColor3 = getgenv().UIColor["Title Text Color"]
+    local V = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[1])
+    local W = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[2])
+    local X = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[3])
+    local g = V .. "," .. W .. "," .. X
+    ad.Text = '<font color="rgb(' .. g .. ')">Sea Hub</font> ' .. getgenv().MainDesc
+    table.insert(
+        c["Title Text Color"],
+        function()
+            aa.ImageColor3 = getgenv().UIColor["Title Text Color"]
+            local V = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[1])
+            local W = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[2])
+            local X = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[3])
+            local g = V .. "," .. W .. "," .. X
+            ad.Text = '<font color="rgb(' .. g .. ')">Sea Hub</font> ' .. getgenv().MainDesc
+        end
+    )
+    local ar
+    local au = getgenv().UIColor["Background Image"]
+    if
+        au ~= "" and type(au) == "string" and string.find(au:lower(), ".webm") and
+            pcall(
+                function()
+                    writefile("seahub.webm", syn.request({Url = au}).Body)
+                end
+            )
+     then
+        wait(.25)
+        local at = isfile("seahub.webm")
+        wait(.25)
+        if at then
+            ar = Instance.new("VideoFrame")
+            ar.Name = "MainContainer"
+            ar.Parent = a9
+            ar.BackgroundColor3 = getgenv().UIColor["Background Main Color"]
+            ar.Size = UDim2.new(1, 0, 1, 0)
+            ar.Video = getsynasset("seahub.webm")
+            ar.Looped = true
+            ar:Play()
+            wait(.5)
+            delfile("seahub.webm")
+        end
+    else
+        ar = Instance.new("ImageLabel")
+        ar.Name = "MainContainer"
+        ar.Parent = a9
+        ar.BackgroundColor3 = getgenv().UIColor["Background Main Color"]
+        ar.Size = UDim2.new(1, 0, 1, 0)
+        ar.Image = u.GetIMG(au)
+    end
+    table.insert(
+        c["Background 3 Color"],
+        function()
+            ar.BackgroundColor3 = getgenv().UIColor["Background 3 Color"]
+        end
+    )
+    getgenv().ReadyForGuiLoaded = true
+    ab.CornerRadius = UDim.new(0, 4)
+    ab.Name = "MainCorner"
+    ab.Parent = ar
+    an.Name = "Concacontainer"
+    an.Parent = ar
+    an.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    an.BackgroundTransparency = 1.000
+    an.ClipsDescendants = true
+    an.Position = UDim2.new(0, 0, 0, 30)
+    an.Size = UDim2.new(1, 0, 1, -30)
+    ao.Name = "Concacmain"
+    ao.Parent = an
+    ao.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ao.BackgroundTransparency = 1.000
+    ao.Selectable = true
+    ao.Size = UDim2.new(1, 0, 1, 0)
+    ap.Name = "Background1"
+    ap.Parent = an
+    ap.LayoutOrder = 1
+    ap.Selectable = true
+    ap.Size = UDim2.new(1, 0, 1, 0)
+    ap.BackgroundTransparency = getgenv().UIColor["Background 1 Transparency"]
+    table.insert(
+        c["Background 1 Transparency"],
+        function()
+            ap.BackgroundTransparency = getgenv().UIColor["Background 1 Transparency"]
+        end
+    )
+    ap.BackgroundColor3 = getgenv().UIColor["Background 1 Color"]
+    table.insert(
+        c["Background 1 Color"],
+        function()
+            ap.BackgroundColor3 = getgenv().UIColor["Background 1 Color"]
+        end
+    )
+    aq.Name = "Concacpage"
+    aq.Parent = an
+    aq.SortOrder = Enum.SortOrder.LayoutOrder
+    aq.EasingDirection = Enum.EasingDirection.InOut
+    aq.EasingStyle = Enum.EasingStyle.Quad
+    aq.TweenTime = getgenv().UIColor["Tween Animation 1 Speed"]
+    table.insert(
+        c["Tween Animation 1 Speed"],
+        function()
+            aq.TweenTime = getgenv().UIColor["Tween Animation 1 Speed"]
+        end
+    )
+    ac.Name = "TopMain"
+    ac.Parent = ar
+    ac.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ac.BackgroundTransparency = 1.000
+    ac.Size = UDim2.new(1, 0, 0, 25)
+    O.Name = "Ruafimg"
+    O.Parent = ac
+    O.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    O.BackgroundTransparency = 1.000
+    O.Position = UDim2.new(0, 5, 0, 0)
+    O.Size = UDim2.new(0, 25, 0, 25)
+    O.Image = getgenv().UIColor["Logo Image"]
+    table.insert(
+        c["Logo Image"],
+        function()
+            O.Image = getgenv().UIColor["Logo Image"]
+        end
+    )
+    ad.Name = "TextLabelMain"
+    ad.Parent = ac
+    ad.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    ad.BackgroundTransparency = 1.000
+    ad.Position = UDim2.new(0, 35, 0, 0)
+    ad.Size = UDim2.new(1, -35, 1, 0)
+    ad.Font = Enum.Font.GothamBold
+    ad.RichText = true
+    ad.TextSize = 16.000
+    ad.TextWrapped = true
+    ad.TextXAlignment = Enum.TextXAlignment.Left
+    ad.TextColor3 = getgenv().UIColor["GUI Text Color"]
+    table.insert(
+        c["GUI Text Color"],
+        function()
+            ad.TextColor3 = getgenv().UIColor["GUI Text Color"]
+        end
+    )
+    local V = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[1])
+    local W = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[2])
+    local X = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[3])
+    local g = V .. "," .. W .. "," .. X
+    ad.Text = '<font color="rgb(' .. g .. ')">Sea Hub</font> ' .. getgenv().MainDesc
+    table.insert(
+        c["Title Text Color"],
+        function()
+            local V = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[1])
+            local W = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[2])
+            local X = tostring(u.Getcolor(getgenv().UIColor["Title Text Color"])[3])
+            local g = V .. "," .. W .. "," .. X
+            ad.Text = '<font color="rgb(' .. g .. ')">Sea Hub</font> ' .. getgenv().MainDesc
+        end
+    )
+    ak.Name = "SettionMain"
+    ak.Parent = ac
+    ak.AnchorPoint = Vector2.new(1, 0)
+    ak.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ak.BackgroundTransparency = 1.000
+    ak.Position = UDim2.new(1, 0, 0, 0)
+    ak.Size = UDim2.new(0, 30, 0, 30)
+    al.Name = "SettionButton"
+    al.Parent = ak
+    al.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    al.BackgroundTransparency = 1.000
+    al.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    al.Size = UDim2.new(1, 0, 1, 0)
+    al.Font = Enum.Font.SourceSans
+    al.Text = ""
+    al.TextColor3 = Color3.fromRGB(0, 0, 0)
+    al.TextSize = 14.000
+    al.Visible = true
+    am.Name = "SettingIcon"
+    am.Parent = ak
+    am.AnchorPoint = Vector2.new(0.5, 0.5)
+    am.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    am.BackgroundTransparency = 1.000
+    am.Position = UDim2.new(0.5, 0, 0.5, 0)
+    am.Size = UDim2.new(1, -10, 1, -10)
+    am.Image = "rbxassetid://7397332215"
+    am.Visible = true
+    am.ImageColor3 = getgenv().UIColor["Setting Icon Color"]
+    table.insert(
+        c["Setting Icon Color"],
+        function()
+            am.ImageColor3 = getgenv().UIColor["Setting Icon Color"]
+        end
+    )
+    ae.Name = "Background1"
+    ae.Parent = ao
+    ae.Position = UDim2.new(0, 5, 0, 0)
+    ae.Size = UDim2.new(0, 180, 0, 325)
+    ae.BackgroundTransparency = getgenv().UIColor["Background 1 Transparency"]
+    table.insert(
+        c["Background 1 Transparency"],
+        function()
+            ae.BackgroundTransparency = getgenv().UIColor["Background 1 Transparency"]
+        end
+    )
+    ae.BackgroundColor3 = getgenv().UIColor["Background 1 Color"]
+    table.insert(
+        c["Background 1 Color"],
+        function()
+            ae.BackgroundColor3 = getgenv().UIColor["Background 1 Color"]
+        end
+    )
+    M.CornerRadius = UDim.new(0, 4)
+    M.Parent = ae
+    af.Name = "ControlList"
+    af.Parent = ae
+    af.Active = true
+    af.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    af.BackgroundTransparency = 1.000
+    af.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    af.BorderSizePixel = 0
+    af.Position = UDim2.new(0, 0, 0, 30)
+    af.Size = UDim2.new(1, -5, 1, -30)
+    af.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+    af.CanvasSize = UDim2.new(0, 0, 0, 0)
+    af.ScrollBarThickness = 5
+    af.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+    ag.Parent = af
+    ag.SortOrder = Enum.SortOrder.LayoutOrder
+    ag.Padding = UDim.new(0, 5)
+    ah.Name = "GUITextColor"
+    ah.Parent = ae
+    ah.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    ah.BackgroundTransparency = 1.000
+    ah.Position = UDim2.new(0, 5, 0, 0)
+    ah.Size = UDim2.new(1, 0, 0, 25)
+    ah.Font = Enum.Font.GothamBold
+    ah.Text = Z
+    ah.TextSize = 14.000
+    ah.TextXAlignment = Enum.TextXAlignment.Left
+    ah.TextColor3 = getgenv().UIColor["GUI Text Color"]
+    table.insert(
+        c["GUI Text Color"],
+        function()
+            ah.TextColor3 = getgenv().UIColor["GUI Text Color"]
+        end
+    )
+    ai.Name = "MainPage"
+    ai.Parent = ao
+    ai.BackgroundColor3 = Color3.fromRGB(230, 230, 230)
+    ai.BackgroundTransparency = 1.000
+    ai.ClipsDescendants = true
+    ai.Position = UDim2.new(0, 190, 0, 0)
+    ai.Size = UDim2.new(0, 435, 0, 325)
+    aj.Name = "UIPage"
+    aj.Parent = ai
+    aj.FillDirection = Enum.FillDirection.Vertical
+    aj.SortOrder = Enum.SortOrder.LayoutOrder
+    aj.EasingDirection = Enum.EasingDirection.InOut
+    aj.EasingStyle = Enum.EasingStyle.Quart
+    aj.Padding = UDim.new(0, 10)
+    aj.TweenTime = getgenv().UIColor["Tween Animation 1 Speed"]
+    aj.ScrollWheelInputEnabled = false
+    table.insert(
+        c["Tween Animation 1 Speed"],
+        function()
+            aj.TweenTime = getgenv().UIColor["Tween Animation 1 Speed"]
+        end
+    )
+    ag:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(
+        function()
+            af.CanvasSize = UDim2.new(0, 0, 0, ag.AbsoluteContentSize.Y + 5)
+        end
+    )
+    local av = false
+    al.MouseButton1Click:Connect(
+        function()
+            u.ButtonEffect()
+        end
+    )
+    al.MouseButton1Click:Connect(
+        function()
+            av = not av
+            pa = av and 1 or 0
+            ro = av and 180 or 0
+          --  aq:JumpToIndex(pa)
+            game.TweenService:Create(am, TweenInfo.new(getgenv().UIColor["Tween Animation 1 Speed"]), {Rotation = ro}):Play(
+
+            )
+        end
+    )
+    local aw = Instance.new("ScrollingFrame")
+    local ax = Instance.new("UIListLayout")
+    aw.Name = "CustomList"
+    aw.Parent = ap
+    aw.Active = true
+    aw.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    aw.BackgroundTransparency = 1.000
+    aw.BorderColor3 = Color3.fromRGB(27, 42, 53)
+    aw.BorderSizePixel = 0
+    aw.Position = UDim2.new(0, 5, 0, 30)
+    aw.Size = UDim2.new(1, -10, 1, -30)
+    aw.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+    aw.ScrollBarThickness = 5
+    aw.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
+    ax.Name = "CustomListLayout"
+    ax.Parent = aw
+    ax.SortOrder = Enum.SortOrder.LayoutOrder
+    ax.Padding = UDim.new(0, 5)
+    ax:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(
+        function()
+            aw.CanvasSize = UDim2.new(0, 0, 0, ax.AbsoluteContentSize.Y + 5)
+        end
+    )
+    local ay = Instance.new("TextLabel")
+    ay.Name = "GUITextColor"
+    ay.Parent = ap
+    ay.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ay.BackgroundTransparency = 1.000
+    ay.Position = UDim2.new(0, 15, 0, 0)
+    ay.Size = UDim2.new(1, -15, 0, 25)
+    ay.Font = Enum.Font.GothamBold
+    ay.Text = ""
+    ay.TextSize = 16.000
+    ay.TextXAlignment = Enum.TextXAlignment.Left
+    ay.TextColor3 = getgenv().UIColor["GUI Text Color"]
+    table.insert(
+        c["GUI Text Color"],
+        function()
+            ay.TextColor3 = getgenv().UIColor["GUI Text Color"]
+        end
+    )
+    local az = Instance.new("Frame")
+    local aA = Instance.new("UICorner")
+    local aB = Instance.new("Frame")
+    local aC = Instance.new("ImageLabel")
+    local aD = Instance.new("TextButton")
+    local aE = Instance.new("TextBox")
+    az.Name = "Background2"
+    az.Parent = ap
+    az.AnchorPoint = Vector2.new(1, 0)
+    az.BackgroundColor3 = getgenv().UIColor["Background 2 Color"]
+    az.ClipsDescendants = true
+    az.Position = UDim2.new(1, -5, 0, 5)
+    az.Size = UDim2.new(0, 20, 0, 20)
+    az.ClipsDescendants = true
+    table.insert(
+        c["Background 2 Color"],
+        function()
+            az.BackgroundColor3 = getgenv().UIColor["Background 2 Color"]
+        end
+    )
+    aA.CornerRadius = UDim.new(0, 2)
+    aA.Name = "PageSearchCorner"
+    aA.Parent = az
+    aB.Name = "SearchFrame"
+    aB.Parent = az
+    aB.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    aB.BackgroundTransparency = 1.000
+    aB.Size = UDim2.new(0, 20, 0, 20)
+    aC.Name = "SearchIcon"
+    aC.Parent = aB
+    aC.AnchorPoint = Vector2.new(0.5, 0.5)
+    aC.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    aC.BackgroundTransparency = 1.000
+    aC.Position = UDim2.new(0.5, 0, 0.5, 0)
+    aC.Size = UDim2.new(0, 16, 0, 16)
+    aC.Image = "rbxassetid://8154282545"
+    aC.ImageColor3 = getgenv().UIColor["Search Icon Color"]
+    table.insert(
+        c["Search Icon Color"],
+        function()
+            aC.ImageColor3 = getgenv().UIColor["Search Icon Color"]
+        end
+    )
+    aD.Name = "active"
+    aD.Parent = aB
+    aD.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    aD.BackgroundTransparency = 1.000
+    aD.Size = UDim2.new(1, 0, 1, 0)
+    aD.Font = Enum.Font.SourceSans
+    aD.Text = ""
+    aD.TextColor3 = Color3.fromRGB(0, 0, 0)
+    aD.TextSize = 14.000
+    aE.Name = "TextColorPlaceholder"
+    aE.Parent = az
+    aE.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    aE.BackgroundTransparency = 1.000
+    aE.Position = UDim2.new(0, 30, 0, 0)
+    aE.Size = UDim2.new(1, -30, 1, 0)
+    aE.Font = Enum.Font.GothamBold
+    aE.Text = ""
+    aE.TextSize = 14.000
+    aE.TextXAlignment = Enum.TextXAlignment.Left
+    aE.PlaceholderText = "Search Section name"
+    aE.PlaceholderColor3 = getgenv().UIColor["Placeholder Text Color"]
+    aE.TextColor3 = getgenv().UIColor["Text Color"]
+    table.insert(
+        c["Placeholder Text Color"],
+        function()
+            aE.PlaceholderColor3 = getgenv().UIColor["Placeholder Text Color"]
+        end
+    )
+    table.insert(
+        c["Text Color"],
+        function()
+            aE.TextColor3 = getgenv().UIColor["Text Color"]
+        end
+    )
+    local aF = false
+    aD.MouseEnter:Connect(
+        function()
+            w:Create(
+                aC,
+                TweenInfo.new(getgenv().UIColor["Tween Animation 3 Speed"]),
+                {ImageColor3 = getgenv().UIColor["Search Icon Highlight Color"]}
+            ):Play()
+        end
+    )
+    aD.MouseLeave:Connect(
+        function()
+            w:Create(
+                aC,
+                TweenInfo.new(getgenv().UIColor["Tween Animation 3 Speed"]),
+                {ImageColor3 = getgenv().UIColor["Search Icon Color"]}
+            ):Play()
+        end
+    )
+    aD.MouseButton1Click:Connect(
+        function()
+            u.ButtonEffect()
+        end
+    )
+    aE.Focused:Connect(
+        function()
+            u.ButtonEffect()
+        end
+    )
+    aD.MouseButton1Click:Connect(
+        function()
+            aF = not aF
+            local aG = aF and UDim2.new(0, 175, 0, 20) or UDim2.new(0, 20, 0, 20)
+            game.TweenService:Create(az, TweenInfo.new(getgenv().UIColor["Tween Animation 2 Speed"]), {Size = aG}):Play(
+
+            )
+        end
+    )
+    local function aH()
+        for a, v in next, aw:GetChildren() do
+            if not v:IsA("UIListLayout") then
+                v.Visible = false
+            end
+        end
+    end
+    local function aI()
+        for n, B in pairs(aw:GetChildren()) do
+            if not B:IsA("UIListLayout") then
+                if string.find(string.lower(B.Name), string.lower(aE.Text)) then
+                    B.Visible = true
+                end
+            end
+        end
+    end
+    aE:GetPropertyChangedSignal("Text"):Connect(
+        function()
+            aH()
+            aI()
+        end
+    )
+    function t.CreateCustomColor(aJ)
+        ay.Text = aJ or "Custom GUI"
+        local aK = {}
+        function aK.CreateSection(aL)
+            local aM = Instance.new("Frame")
+            local M = Instance.new("UICorner")
+            local aN = Instance.new("Frame")
+            local aO = Instance.new("TextLabel")
+            local aP = Instance.new("Frame")
+            local aQ = Instance.new("UIGradient")
+            local aR = Instance.new("UIListLayout")
+            local aS = aL or "Section"
+            aM.Name = aL .. "Section"
+            aM.Parent = aw
+            aM.Size = UDim2.new(1, 0, 0, 285)
+            aM.BackgroundColor3 = getgenv().UIColor["Background 3 Color"]
+            table.insert(
+                c["Background 3 Color"],
+                function()
+                    aM.BackgroundColor3 = getgenv().UIColor["Background 3 Color"]
+                end
+            )
+            aM.BackgroundTransparency = getgenv().UIColor["Background 1 Transparency"]
+            table.insert(
+                c["Background 1 Transparency"],
+                function()
+                    aM.BackgroundTransparency = getgenv().UIColor["Background 1 Transparency"]
+                end
+            )
+            M.CornerRadius = UDim.new(0, 4)
+            M.Parent = aM
+            aN.Name = "Topsec"
+            aN.Parent = aM
+            aN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            aN.BackgroundTransparency = 1.000
+            aN.Size = UDim2.new(1, 0, 0, 27)
